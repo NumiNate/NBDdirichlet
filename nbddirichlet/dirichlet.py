@@ -2,6 +2,7 @@
 
 import numpy as np
 from scipy import stats, special, optimize
+import pandas as pd  # Add this import statement
 
 class Dirichlet:
     def __init__(self, cat_pen, cat_buyrate, brand_share, brand_pen_obs, brand_name=None,
@@ -77,12 +78,15 @@ class Dirichlet:
             o_pen = self.brand_pen_obs[j]
             return (t_pen - o_pen) ** 2
 
-        Sall = [optimize.minimize_scalar(eq2, args=(j,), bounds=(0, self.max_S), method='bounded').x
+        Sall = [optimize.minimize_scalar(eq2, args=(j,), bounds=(0.0001, self.max_S), method='bounded').x
                 for j in range(self.nbrand)]
 
         bp = np.percentile(Sall, [25, 75])
         outliers = [s for s in Sall if s < bp[0] - 1.5 * (bp[1] - bp[0]) or s > bp[1] + 1.5 * (bp[1] - bp[0])]
         schoose = [s for s in Sall if s not in outliers]
+        
+        if not schoose:  # If all values are outliers, use the median
+            return np.median(Sall)
         
         return np.average(schoose, weights=[self.brand_share[i] for i, s in enumerate(Sall) if s in schoose])
 
@@ -195,17 +199,10 @@ class Dirichlet:
         return numerator / self.brand_pen(j)
 
     def period_set(self, t):
-        """
-        Set the period value based on the input time parameter.
-
-        Parameters:
-            self: The Dirichlet object.
-            t (int): The time parameter used to set the period value.
-
-        Returns:
-            None
-        """
         self.M = self.M0 * t
+        self.K = self._estimate_K()
+        # S remains unchanged
+        # self.S = self._estimate_S()  # Remove this line
 
     def period_print(self):
         """
@@ -229,3 +226,34 @@ class Dirichlet:
         :rtype: str
         """
         return f"Dirichlet Model with {self.nbrand} brands"
+
+    def chi_square_test(self):
+        observed = np.array(self.brand_pen_obs)
+        expected = np.array([self.brand_pen(j) for j in range(self.nbrand)])
+        
+        # Normalize expected frequencies to sum to the same total as observed
+        expected = expected * (observed.sum() / expected.sum())
+        
+        chi2, p_value = stats.chisquare(observed, expected)
+        return chi2, p_value
+
+    def mape(self):
+        observed = np.array(self.brand_pen_obs)
+        predicted = np.array([self.brand_pen(j) for j in range(self.nbrand)])
+        return np.mean(np.abs((observed - predicted) / observed)) * 100
+
+    def rmse(self):
+        observed = np.array(self.brand_pen_obs)
+        predicted = np.array([self.brand_pen(j) for j in range(self.nbrand)])
+        return np.sqrt(np.mean((observed - predicted)**2))
+
+    def correlation(self):
+        observed = np.array(self.brand_pen_obs)
+        predicted = np.array([self.brand_pen(j) for j in range(self.nbrand)])
+        return np.corrcoef(observed, predicted)[0, 1]
+
+    def percent_differences(self):
+        observed = np.array(self.brand_pen_obs)
+        predicted = np.array([self.brand_pen(j) for j in range(self.nbrand)])
+        percent_diff = (predicted - observed) / observed * 100
+        return pd.Series(percent_diff, index=self.brand_name)
