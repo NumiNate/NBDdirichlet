@@ -6,33 +6,39 @@ cat_pen = 0.56  # Category Penetration
 cat_buyrate = 2.6  # Category Buyer's Average Purchase Rate in a given period
 brand_share = [0.25, 0.19, 0.1, 0.1, 0.09, 0.08, 0.03, 0.02]  # Brands' Market Share
 brand_pen_obs = [0.2, 0.17, 0.09, 0.08, 0.08, 0.07, 0.03, 0.02]  # Brand Penetration
-brand_name = ["Colgate DC", "Macleans", "Close Up", "Signal", "ultrabrite",
+brand_name = ["Colgate DC", "Macleans", "Close Up", "Signal", "Ultrabrite",
               "Gibbs SR", "Boots Priv. Label", "Sainsbury Priv. Lab."]
 
 # Create Dirichlet model instance
-dobj = Dirichlet(cat_pen, cat_buyrate, brand_share, brand_pen_obs, brand_name)
+dobj = Dirichlet(cat_pen, cat_buyrate, brand_share, brand_pen_obs, brand_name, t=8)
 
-# Print model parameters
+# Print model parameters for the base time period
+print("Base Time Period:")
 print_dirichlet(dobj)
+print(f"M: {dobj.M:.2f}, K: {dobj.K:.3f}, S: {dobj.S:.3f}")
 
-# Generate summary statistics
+# Generate and print summary statistics for the base time period
 summary = summary_dirichlet(dobj)
-
-# Print summary statistics
-print("\nBuy Summary:")
+print("\nBase Time Period Summary:")
 print(summary['buy'])
 
-print("\nFrequency Summary:")
-print(summary['freq'])
+# Adjust the time period (e.g., to 8 quarters)
+dobj.period_set(t=2)
 
-print("\nHeavy Buyers Summary:")
-print(summary['heavy'])
+# Print the adjusted values
+print(f"\nAdjusted Time Period (t={dobj.t}):")
+print_dirichlet(dobj)
+print(f"M: {dobj.M:.2f}, K: {dobj.K:.3f}, S: {dobj.S:.3f}")
 
-print("\nDuplication Summary:")
-print(summary['dup'])
+# Generate and print summary statistics for the adjusted time period
+summary_adjusted = summary_dirichlet(dobj)
+print("\nAdjusted Time Period Summary:")
+print(summary_adjusted['buy'])
 
-# Plot results
+# Compare base and adjusted summaries
+print("\nDifferences between Base and Adjusted Summaries:")
+diff = summary_adjusted['buy'] - summary['buy']
+print(diff)
+
+# Plot results for the adjusted time period
 plot_dirichlet(dobj)
-
-# You can add more specific tests here to compare individual values
-# with the expected results from the R implementation

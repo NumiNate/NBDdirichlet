@@ -4,16 +4,16 @@
 
 |    |    R |   Python |   Difference |
 |:---|-----:|---------:|-------------:|
-| M  | 1.46 |   0.3717 |       1.0883 |
-| K  | 0.78 | nan      |     nan      |
-| S  | 1.3  | nan      |     nan      |
+| M  | 1.46 |     1.46 |         0    |
+| K  | 0.78 |     0.78 |         0    |
+| S  | 1.3  |     1.55 |         0.25 |
 
 ## Buy Summary
 
 |                                       |    R |   Python |   Difference |
 |:--------------------------------------|-----:|---------:|-------------:|
-| ('Colgate DC', 'pen.brand')           | 0.2  |     0.21 |         0.01 |
-| ('Colgate DC', 'pur.brand')           | 1.82 |     1.77 |         0.05 |
+| ('Colgate DC', 'pen.brand')           | 0.2  |     0.2  |         0    |
+| ('Colgate DC', 'pur.brand')           | 1.82 |     1.78 |         0.04 |
 | ('Colgate DC', 'pur.cat')             | 3.16 |     3.2  |         0.04 |
 | ('Macleans', 'pen.brand')             | 0.16 |     0.16 |         0    |
 | ('Macleans', 'pur.brand')             | 1.76 |     1.72 |         0.04 |
@@ -41,13 +41,13 @@
 
 |                                |    R |   Python |   Difference |
 |:-------------------------------|-----:|---------:|-------------:|
-| ('Colgate DC', '0')            | 0.8  |     0.79 |         0.01 |
+| ('Colgate DC', '0')            | 0.8  |     0.8  |         0    |
 | ('Colgate DC', '1')            | 0.12 |     0.12 |         0    |
 | ('Colgate DC', '2')            | 0.04 |     0.04 |         0    |
 | ('Colgate DC', '3')            | 0.02 |     0.02 |         0    |
 | ('Colgate DC', '4')            | 0.01 |     0.01 |         0    |
 | ('Colgate DC', '5')            | 0    |     0    |         0    |
-| ('Colgate DC', '6+')           | 0.01 |     0.01 |         0    |
+| ('Colgate DC', '6+')           | 0.01 |     0    |         0.01 |
 | ('Macleans', '0')              | 0.84 |     0.84 |         0    |
 | ('Macleans', '1')              | 0.1  |     0.1  |         0    |
 | ('Macleans', '2')              | 0.03 |     0.03 |         0    |
@@ -79,13 +79,13 @@
 | ('Gibbs SR', '0')              | 0.93 |     0.93 |         0    |
 | ('Gibbs SR', '1')              | 0.05 |     0.05 |         0    |
 | ('Gibbs SR', '2')              | 0.01 |     0.01 |         0    |
-| ('Gibbs SR', '3')              | 0.01 |     0.01 |         0    |
+| ('Gibbs SR', '3')              | 0.01 |     0    |         0.01 |
 | ('Gibbs SR', '4')              | 0    |     0    |         0    |
 | ('Gibbs SR', '5')              | 0    |     0    |         0    |
 | ('Gibbs SR', '6+')             | 0    |     0    |         0    |
 | ('Boots Priv. Label', '0')     | 0.97 |     0.97 |         0    |
 | ('Boots Priv. Label', '1')     | 0.02 |     0.02 |         0    |
-| ('Boots Priv. Label', '2')     | 0.01 |     0.01 |         0    |
+| ('Boots Priv. Label', '2')     | 0.01 |     0    |         0.01 |
 | ('Boots Priv. Label', '3')     | 0    |     0    |         0    |
 | ('Boots Priv. Label', '4')     | 0    |     0    |         0    |
 | ('Boots Priv. Label', '5')     | 0    |     0    |         0    |
@@ -102,22 +102,22 @@
 
 |                                               |    R |   Python |   Difference |
 |:----------------------------------------------|-----:|---------:|-------------:|
-| ('Colgate DC', 'Penetration')                 | 0.34 |     0.35 |         0.01 |
-| ('Colgate DC', 'Avg Purchase Freq')           | 1.61 |     1.58 |         0.03 |
-| ('Macleans', 'Penetration')                   | 0.27 |     0.28 |         0.01 |
-| ('Macleans', 'Avg Purchase Freq')             | 1.57 |     1.53 |         0.04 |
-| ('Close Up', 'Penetration')                   | 0.15 |     0.15 |         0    |
-| ('Close Up', 'Avg Purchase Freq')             | 1.51 |     1.47 |         0.04 |
-| ('Signal', 'Penetration')                     | 0.15 |     0.15 |         0    |
-| ('Signal', 'Avg Purchase Freq')               | 1.51 |     1.47 |         0.04 |
-| ('ultrabrite', 'Penetration')                 | 0.13 |     0.14 |         0.01 |
-| ('ultrabrite', 'Avg Purchase Freq')           | 1.5  |     1.46 |         0.04 |
-| ('Gibbs SR', 'Penetration')                   | 0.12 |     0.12 |         0    |
-| ('Gibbs SR', 'Avg Purchase Freq')             | 1.49 |     1.45 |         0.04 |
-| ('Boots Priv. Label', 'Penetration')          | 0.05 |     0.05 |         0    |
-| ('Boots Priv. Label', 'Avg Purchase Freq')    | 1.46 |     1.42 |         0.04 |
+| ('Colgate DC', 'Penetration')                 | 0.34 |     0.33 |         0.01 |
+| ('Colgate DC', 'Avg Purchase Freq')           | 1.61 |     1.42 |         0.19 |
+| ('Macleans', 'Penetration')                   | 0.27 |     0.26 |         0.01 |
+| ('Macleans', 'Avg Purchase Freq')             | 1.57 |     1.39 |         0.18 |
+| ('Close Up', 'Penetration')                   | 0.15 |     0.14 |         0.01 |
+| ('Close Up', 'Avg Purchase Freq')             | 1.51 |     1.34 |         0.17 |
+| ('Signal', 'Penetration')                     | 0.15 |     0.14 |         0.01 |
+| ('Signal', 'Avg Purchase Freq')               | 1.51 |     1.34 |         0.17 |
+| ('ultrabrite', 'Penetration')                 | 0.13 |     0.13 |         0    |
+| ('ultrabrite', 'Avg Purchase Freq')           | 1.5  |     1.33 |         0.17 |
+| ('Gibbs SR', 'Penetration')                   | 0.12 |     0.11 |         0.01 |
+| ('Gibbs SR', 'Avg Purchase Freq')             | 1.49 |     1.33 |         0.16 |
+| ('Boots Priv. Label', 'Penetration')          | 0.05 |     0.04 |         0.01 |
+| ('Boots Priv. Label', 'Avg Purchase Freq')    | 1.46 |     1.3  |         0.16 |
 | ('Sainsbury Priv. Lab.', 'Penetration')       | 0.03 |     0.03 |         0    |
-| ('Sainsbury Priv. Lab.', 'Avg Purchase Freq') | 1.45 |     1.41 |         0.04 |
+| ('Sainsbury Priv. Lab.', 'Avg Purchase Freq') | 1.45 |     1.3  |         0.15 |
 
 ## Dup Summary
 

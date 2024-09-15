@@ -3,34 +3,33 @@
 import numpy as np
 import pandas as pd
 
-def summary_dirichlet(obj, t=1, type=('buy', 'freq', 'heavy', 'dup'), digits=2, freq_cutoff=5, heavy_limit=range(1, 7), dup_brand=0):
+def summary_dirichlet(obj, type=('buy', 'freq', 'heavy', 'dup'), digits=3, freq_cutoff=5, heavy_limit=range(1, 5), dup_brand=0):
     """
     Generates a summary of the Dirichlet model for a given object and period.
 
     Args:
         obj (Dirichlet): The Dirichlet object representing the model.
-        t (int, optional): The period for which the summary is generated. Defaults to 1.
         type (tuple, optional): The types of summaries to generate. Defaults to ('buy', 'freq', 'heavy', 'dup').
-        digits (int, optional): The number of decimal places to round the results to. Defaults to 2.
+        digits (int, optional): The number of decimal places to round the results to. Defaults to 3.
         freq_cutoff (int, optional): The cutoff for the frequency summary. Defaults to 5.
-        heavy_limit (range, optional): The range of values for the heavy limit. Defaults to range(1, 7).
+        heavy_limit (range, optional): The range of values for the heavy limit. Defaults to range(1, 5).
         dup_brand (int, optional): The brand for the duplicate summary. Defaults to 0.
 
     Returns:
         dict: A dictionary containing the generated summaries. The keys are the types of summaries and the values are the corresponding results.
 
     """
-    obj.period_set(t)
     result = {}
-
     for tt in type:
         if tt == "buy":
-            r = pd.DataFrame({
-                'pen_brand': [obj.brand_pen(j) for j in range(obj.nbrand)],
-                'pur_brand': [obj.brand_buyrate(j) for j in range(obj.nbrand)],
-                'pur_cat': [obj.wp(j) for j in range(obj.nbrand)]
-            }, index=obj.brand_name)
-            result[tt] = r.round(digits)
+            r = np.zeros((obj.nbrand, 3))
+            for j in range(obj.nbrand):
+                r[j, 0] = obj.brand_pen(j)  # This should now use current M and K
+                r[j, 1] = obj.brand_buyrate(j)  # This should now use current M and K
+                r[j, 2] = obj.wp(j)  # This should now use current M and K
+
+            result[tt] = pd.DataFrame(r, index=obj.brand_name, 
+                                      columns=["pen_brand", "pur_brand", "pur_cat"]).round(digits)
 
         elif tt == "freq":
             def prob_r(r, j):

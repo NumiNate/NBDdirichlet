@@ -1,54 +1,78 @@
-Number of Brands in the Category = 8
-Brand List : Colgate DC, Macleans, Close Up, Signal, ultrabrite, Gibbs SR, Boots Priv. Label, Sainsbury Priv. Lab.
-Brands' Market Shares: 0.250, 0.190, 0.100, 0.100, 0.090, 0.080, 0.030, 0.020
-Brands' Penetration:   0.200, 0.170, 0.090, 0.080, 0.080, 0.070, 0.030, 0.020
-Multiple of Base Time Period: 1.00, Current M = 1.4560000000000002
+Dirichlet Model Parameters:
+Category Penetration: 0.56
+Category Buy Rate: 2.6
+M: 1.46
+K: 0.78
+S: 1.55
 
-Category Penetration = 0.56, with Buying Rate = 2.60
-Estimated Dirichlet Model Parameters:
-NBD: M = 1.46, K = 0.78; Dirichlet: S = 1.55
-
+Brand Information:
+Colgate DC:
+  Share: 0.2500
+  Observed Penetration: 0.2000
+Macleans:
+  Share: 0.1900
+  Observed Penetration: 0.1700
+Close Up:
+  Share: 0.1000
+  Observed Penetration: 0.0900
+Signal:
+  Share: 0.1000
+  Observed Penetration: 0.0800
+ultrabrite:
+  Share: 0.0900
+  Observed Penetration: 0.0800
+Gibbs SR:
+  Share: 0.0800
+  Observed Penetration: 0.0700
+Boots Priv. Label:
+  Share: 0.0300
+  Observed Penetration: 0.0300
+Sainsbury Priv. Lab.:
+  Share: 0.0200
+  Observed Penetration: 0.0200
 
 Buy Summary:
                       pen_brand  pur_brand  pur_cat
-Colgate DC                 0.21       1.77     3.20
-Macleans                   0.16       1.72     3.26
-Close Up                   0.09       1.63     3.35
-Signal                     0.09       1.63     3.35
-ultrabrite                 0.08       1.62     3.36
-Gibbs SR                   0.07       1.61     3.37
-Boots Priv. Label          0.03       1.56     3.43
-Sainsbury Priv. Lab.       0.02       1.55     3.44
+Colgate DC                0.205      1.775    3.197
+Macleans                  0.161      1.715    3.258
+Close Up                  0.089      1.628    3.352
+Signal                    0.089      1.628    3.352
+ultrabrite                0.081      1.618    3.363
+Gibbs SR                  0.072      1.608    3.374
+Boots Priv. Label         0.028      1.561    3.429
+Sainsbury Priv. Lab.      0.019      1.552    3.440
 
 Frequency Summary:
-                         0     1     2     3     4    5    6+
-Colgate DC            0.79  0.12  0.04  0.02  0.01  0.0  0.01
-Macleans              0.84  0.10  0.03  0.01  0.01  0.0  0.00
-Close Up              0.91  0.06  0.02  0.01  0.00  0.0  0.00
-Signal                0.91  0.06  0.02  0.01  0.00  0.0  0.00
-ultrabrite            0.92  0.05  0.02  0.01  0.00  0.0  0.00
-Gibbs SR              0.93  0.05  0.01  0.01  0.00  0.0  0.00
-Boots Priv. Label     0.97  0.02  0.01  0.00  0.00  0.0  0.00
-Sainsbury Priv. Lab.  0.98  0.01  0.00  0.00  0.00  0.0  0.00
+                          0      1  ...      5     6+
+Colgate DC            0.795  0.124  ...  0.005  0.005
+Macleans              0.839  0.101  ...  0.003  0.004
+Close Up              0.911  0.059  ...  0.001  0.002
+Signal                0.911  0.059  ...  0.001  0.002
+ultrabrite            0.919  0.054  ...  0.001  0.001
+Gibbs SR              0.928  0.048  ...  0.001  0.001
+Boots Priv. Label     0.972  0.019  ...  0.000  0.000
+Sainsbury Priv. Lab.  0.981  0.013  ...  0.000  0.000
+
+[8 rows x 7 columns]
 
 Heavy Buyers Summary:
                       Penetration  Avg Purchase Freq
-Colgate DC                   0.35               1.58
-Macleans                     0.28               1.53
-Close Up                     0.15               1.47
-Signal                       0.15               1.47
-ultrabrite                   0.14               1.46
-Gibbs SR                     0.12               1.45
-Boots Priv. Label            0.05               1.42
-Sainsbury Priv. Lab.         0.03               1.41
+Colgate DC                  0.334              1.420
+Macleans                    0.260              1.387
+Close Up                    0.142              1.339
+Signal                      0.142              1.339
+ultrabrite                  0.128              1.334
+Gibbs SR                    0.114              1.329
+Boots Priv. Label           0.044              1.303
+Sainsbury Priv. Lab.        0.029              1.298
 
 Duplication Summary:
-Colgate DC              1.00
-Macleans                0.20
-Close Up                0.11
-Signal                  0.11
-ultrabrite              0.10
-Gibbs SR                0.09
-Boots Priv. Label       0.04
-Sainsbury Priv. Lab.    0.02
+Colgate DC              1.000
+Macleans                0.201
+Close Up                0.112
+Signal                  0.112
+ultrabrite              0.102
+Gibbs SR                0.091
+Boots Priv. Label       0.035
+Sainsbury Priv. Lab.    0.024
 dtype: float64

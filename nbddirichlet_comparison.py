@@ -22,11 +22,21 @@ def run_python_implementation():
     # Create Dirichlet model instance
     dobj = Dirichlet(cat_pen, cat_buyrate, brand_share, brand_pen_obs, brand_name)
 
-    # Print model parameters
-    print_dirichlet(dobj)
+    # Extract parameters
+    parameters = {
+        'M': dobj.M,
+        'K': dobj.K,
+        'S': dobj.S
+    }
 
     # Generate summary statistics
     summary = summary_dirichlet(dobj)
+
+    # Add parameters to the summary
+    summary['parameters'] = parameters
+
+    # Print model parameters
+    print_dirichlet(dobj)
 
     # Print summary statistics
     print("\nBuy Summary:")
@@ -87,46 +97,43 @@ def compare_results(python_output, r_output):
     comparison = {}
 
     # Compare parameters
-    py_params = {
-        'M': python_output['buy'].iloc[:, 1].iloc[0] * python_output['buy'].iloc[:, 0].iloc[0],
-        'K': None,  # We don't have direct access to K in the summary
-        'S': None   # We don't have direct access to S in the summary
-    }
+    py_params = {k: round(v, 2) for k, v in python_output['parameters'].items()}
+    r_params = {k: round(v, 2) for k, v in r_output['parameters'].items()}
     comparison['parameters'] = pd.DataFrame({
-        'R': r_output['parameters'],
+        'R': r_params,
         'Python': py_params,
-        'Difference': {k: abs(r_output['parameters'][k] - py_params[k]) if py_params[k] is not None else None 
-                       for k in r_output['parameters']}
+        'Difference': {k: abs(r_params[k] - py_params[k]) for k in r_params}
     })
 
     # Compare summary statistics
     for key in ['buy', 'freq', 'heavy']:
-        r_values = r_output[key].values.flatten()
-        py_values = python_output[key].values.flatten()
+        r_df = r_output[key].round(2)
+        py_df = python_output[key].round(2)
         
-        # Ensure the same number of elements for comparison
-        min_length = min(len(r_values), len(py_values))
-        r_values = r_values[:min_length]
-        py_values = py_values[:min_length]
+        # Ensure column names match
+        py_df.columns = r_df.columns
+        
+        # Check if indices match
+        assert all(r_df.index == py_df.index), f"Indices don't match for {key}"
         
         comparison[key] = pd.DataFrame({
-            'R': r_values,
-            'Python': py_values,
-            'Difference': np.abs(r_values - py_values)
-        }, index=pd.MultiIndex.from_product([r_output[key].index[:len(py_values)//len(r_output[key].columns)], 
-                                             r_output[key].columns[:len(r_output[key].columns)]]))
+            'R': r_df.values.flatten(),
+            'Python': py_df.values.flatten(),
+            'Difference': np.abs(r_df.values - py_df.values).flatten().round(2)
+        }, index=pd.MultiIndex.from_product([r_df.index, r_df.columns]))
 
     # Compare duplication
-    r_dup = r_output['dup']
-    py_dup = python_output['dup']
-    min_length = min(len(r_dup), len(py_dup))
+    r_dup = r_output['dup'].round(2)
+    py_dup = python_output['dup'].round(2)
+    assert all(r_dup.index == py_dup.index), "Indices don't match for duplication"
     comparison['dup'] = pd.DataFrame({
-        'R': r_dup[:min_length],
-        'Python': py_dup[:min_length],
-        'Difference': np.abs(r_dup[:min_length] - py_dup[:min_length])
+        'R': r_dup,
+        'Python': py_dup,
+        'Difference': np.abs(r_dup - py_dup).round(2)
     })
 
     return comparison
+
 def generate_report(comparison):
     with open("comparison_report.md", "w") as f:
         f.write("# NBDDirichlet: Python vs R Implementation Comparison\n\n")
