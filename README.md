@@ -28,4 +28,4 @@ If you have any questions or feedback, please open an issue on GitHub or contact
 
 ## Acknowledgments
 
-This package is based on the work of [relevant authors or papers]. We thank them for their contributions to the field of marketing analytics.
+This package is based on the work of Feiming Chen (https://ani.stat.fsu.edu/~fchen/statistics/R-package-NBDdirichlet/how-to-use-Dirichlet-marketing-model.html). We thank them for their contributions to the field of marketing analytics.
